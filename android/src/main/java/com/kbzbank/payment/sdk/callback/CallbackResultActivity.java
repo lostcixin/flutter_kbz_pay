@@ -2,13 +2,13 @@ package com.kbzbank.payment.sdk.callback;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.ymkj.flutter_kbz_pay.FlutterKbzPayPlugin;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.kbzbank.payment.KBZPay;
+import com.ymkj.flutter_kbz_pay.FlutterKbzPayPlugin;
 
 public class CallbackResultActivity extends AppCompatActivity {
 
