@@ -11,7 +11,6 @@ android/app/src/main/manifest.xml
 <activity android:name="com.kbzbank.payment.sdk.callback.CallbackResultActivity" android:exported="true"
 ....
 ```
-
 ####IOS
 App project configuration in the Info. Add kbzpay pist white list
 ios/Runner/Info.plist
@@ -47,9 +46,7 @@ FlutterKbzPay.onPayStatus().listen((String data) {
 });
 ```
 
-
 ## Getting Started
-
 For help getting started with Flutter, view our 
 [online documentation](https://flutter.dev/docs), which offers tutorials, 
 samples, guidance on mobile development, and a full API reference.
