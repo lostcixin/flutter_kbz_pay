@@ -1,6 +1,6 @@
 # Flutter KBZPay 
 
-A Flutter KBZPay plugin.
+A Flutter KBZPay Plugin.
 
 ## Usage
 ### Android
