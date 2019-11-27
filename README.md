@@ -2,8 +2,8 @@
 
 A Flutter KBZPay plugin.
 
-##Usage
-#### Android
+## Usage
+### Android
 android/app/src/main/manifest.xml
 ```xml
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -11,7 +11,7 @@ android/app/src/main/manifest.xml
 <activity android:name="com.kbzbank.payment.sdk.callback.CallbackResultActivity" android:exported="true"
 ....
 ```
-#### IOS
+### IOS
 App project configuration in the Info. Add kbzpay pist white list
 ios/Runner/Info.plist
 ```
@@ -21,7 +21,7 @@ ios/Runner/Info.plist
 	</array>
 ```
 
-#### Payment callback
+### Payment callback
 Payment callback, payment completion or payment cancellation, currently there are only two states. The callback parameter is returned as an OpenUrl, as shown below
 
 1：Pay for success，
