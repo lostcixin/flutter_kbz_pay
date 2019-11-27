@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
-typedef void CallBack(Object o);
-
 class FlutterKbzPay {
   static const MethodChannel _channel = const MethodChannel('flutter_kbz_pay');
   static const EventChannel _eventChannel =
