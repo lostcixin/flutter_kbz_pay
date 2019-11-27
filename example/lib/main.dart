@@ -22,7 +22,9 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    FlutterKbzPay.onPayStatus(success, error);
+    FlutterKbzPay.onPayStatus().listen((Object data) {
+      print('onPayStatus $data');
+    });
     initPlatformState();
   }
 
@@ -59,6 +61,7 @@ class _MyAppState extends State<MyApp> {
             prepayId: this.prepayId,
             merchCode: this.merchCode,
             appId: this.appId,
+            urlScheme: 'KbzPayExample',
             signKey: this.signKey)
         .then((res) {
       print('startPay' + res.toString());

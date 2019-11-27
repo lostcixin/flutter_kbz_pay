@@ -19,13 +19,13 @@ public class CallbackResultActivity extends AppCompatActivity {
         int result = intent.getIntExtra(KBZPay.EXTRA_RESULT, 0);
         if (result == KBZPay.COMPLETED) {
             Log.d("KBZPay", "pay success!");
-            FlutterKbzPayPlugin.sendPayStatus(result);
             Toast.makeText(this, "pay success!", Toast.LENGTH_SHORT).show();
+            FlutterKbzPayPlugin.sendPayStatus(result);
         } else {
             String failMsg = intent.getStringExtra(KBZPay.EXTRA_FAIL_MSG);
-            FlutterKbzPayPlugin.sendPayStatus(result);
-            Log.d("KBZPay", "pay fail, fail reason = " + failMsg);
             Toast.makeText(this, "pay fail, fail reason = " + failMsg, Toast.LENGTH_SHORT).show();
+            Log.d("KBZPay", "pay fail, fail reason = " + failMsg);
+            FlutterKbzPayPlugin.sendPayStatus(result);
         }
     }
 }

@@ -74,9 +74,7 @@ public class FlutterKbzPayPlugin implements MethodCallHandler {
     }
 
     public static void sendPayStatus(int status) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("status", status);
-        sink.success(map);
+        sink.success(Integer.toString(status));
     }
 
     private void createPay(MethodCall call, Result result) {
@@ -95,6 +93,7 @@ public class FlutterKbzPayPlugin implements MethodCallHandler {
                 sign_key = params.getString("sign_key");
                 buildOrderInfo(prepayId, merch_code, appid, sign_key);
                 KBZPay.startPay((Activity) this.context, mOrderInfo, mSign, signType);
+                result.success("payStatus " + 0);
             } else {
                 result.error("parameter error", "parameter error", null);
             }
