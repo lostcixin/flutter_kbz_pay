@@ -1,8 +1,8 @@
 name: flutter_kbz_pay
 description: A Flutter Kbz Pay plugin.
 version: 0.0.1
-author:
-homepage:
+author: lostcixin <1938024388@qq.com>
+homepage: https://github.com/lostcixin/flutter_kbz_pay
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
