@@ -3,7 +3,7 @@
 A Flutter KBZPay Plugin.
 
 ## Installation
-```
+```yaml
 // github
 flutter_kbz_pay:
     git:
@@ -22,7 +22,7 @@ android/app/src/main/manifest.xml
 ### IOS
 App project configuration in the Info. Add kbzpay pist white list
 ios/Runner/Info.plist
-```
+```info
 <key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>kbzpay</string>
@@ -36,7 +36,7 @@ Payment callback, payment completion or payment cancellation, currently there ar
 3：Payment failed, the remaining fields are reserved for later addition。
 
 ## Example
-```
+```dart
 import 'package:flutter_kbz_pay/flutter_kbz_pay.dart';
 
 FlutterKbzPay.startPay(
