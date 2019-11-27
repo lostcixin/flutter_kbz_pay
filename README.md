@@ -2,6 +2,14 @@
 
 A Flutter KBZPay Plugin.
 
+## Installation
+```
+// github
+flutter_kbz_pay:
+    git:
+      url: git://github.com/lostcixin/flutter_kbz_pay.git
+      ref: master
+```
 ## Usage
 ### Android
 android/app/src/main/manifest.xml
