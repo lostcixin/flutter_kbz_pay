@@ -22,7 +22,7 @@ android/app/src/main/manifest.xml
 ### IOS
 App project configuration in the Info. Add kbzpay pist white list
 ios/Runner/Info.plist
-```info
+```plist
 <key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>kbzpay</string>
