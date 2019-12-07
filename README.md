@@ -8,7 +8,7 @@ android/app/src/main/manifest.xml
 ```xml
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 ....
-	<activity android:name="com.kbzbank.payment.sdk.callback.CallbackResultActivity" android:exported="true"
+	<activity android:name="com.kbzbank.payment.sdk.callback.CallbackResultActivity" android:theme="@android:style/Theme.NoDisplay" android:exported="true"
 ....
 ```
 ### IOS

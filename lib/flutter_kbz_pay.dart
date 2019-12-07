@@ -32,7 +32,7 @@ class FlutterKbzPay {
   //appId ,Unique ID assigned to the merchant app by kbz
   //signKey,The signature returned by the server
   //urlScheme , UrlScheme of your app, Only ios needs this parameter
-  static Future<Map> startPay({
+  static Future<String> startPay({
     @required String prepayId,
     @required String merchCode,
     @required String appId,
@@ -45,7 +45,7 @@ class FlutterKbzPay {
         signKey == null) {
       throw ("parameter error");
     }
-    final Map data = await _channel.invokeMethod('startPay', {
+    final String data = await _channel.invokeMethod('startPay', {
       'prepay_id': prepayId,
       'merch_code': merchCode,
       'appid': appId,

@@ -73,8 +73,11 @@ public class FlutterKbzPayPlugin implements MethodCallHandler {
         sink = eventSink;
     }
 
-    public static void sendPayStatus(int status) {
-        sink.success(Integer.toString(status));
+    public static void sendPayStatus(int status, String orderId) {
+        HashMap<String, Object> map = new HashMap();
+        map.put("status", status);
+        map.put("orderId", orderId);
+        sink.success(map);
     }
 
     private void createPay(MethodCall call, Result result) {
