@@ -24,12 +24,12 @@
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
   if ([@"startPay" isEqualToString:call.method]) {
-    NSString *appId = call.arguments[@"appId"];
-    NSString *prepayId = call.arguments[@"prepayId"];
-    NSString *merchCode = call.arguments[@"merchCode"];
-    NSString *signKey = call.arguments[@"signKey"];
-    NSString *urlScheme = call.arguments[@"urlScheme"];
-    NSNumber *data = [self startPay:appId :merchCode :prepayId :signKey :urlScheme];
+    NSString *appId = call.arguments[@"appid"];
+    NSString *prepayId = call.arguments[@"prepay_id"];
+    NSString *merchCode = call.arguments[@"merch_code"];
+    NSString *signKey = call.arguments[@"sign_key"];
+    NSString *urlScheme = call.arguments[@"url_scheme"];
+    NSString *data = [self startPay:appId :merchCode :prepayId :signKey :urlScheme];
     result((data));
   } else if([@"getPlatformVersion" isEqualToString:call.method]) {
     result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
@@ -38,16 +38,19 @@
   }
 }
 
-- (NSNumber *)startPay:(NSString*)appId :(NSString*)merchantCode :(NSString*)prepayId :(NSString*)signKey :(NSString*)urlScheme{
+- (NSString *)startPay:(NSString*)appId :(NSString*)merchantCode :(NSString*)prepayId :(NSString*)signKey :(NSString*)urlScheme{
 
     NSString *nonceStrTF = [self getRandomStr];
-    NSString *orderString = [NSString stringWithFormat:@"appid=%@&merch_code=%@&nonce_str=%@&prepay_id=%@&timestamp=%@",appId,merchantCode,nonceStrTF,prepayId,@"987654321"];
-
+    NSString *timeSp = [self getCurrentTimes];
+    NSString *orderString = [NSString stringWithFormat:@"appid=%@&merch_code=%@&nonce_str=%@&prepay_id=%@&timestamp=%@",appId,merchantCode,nonceStrTF,prepayId,timeSp];
+    NSLog(@"orderString data %@",orderString);
     NSString *signStr = [NSString stringWithFormat:@"%@&key=%@",orderString,signKey];
+    NSLog(@"signStr data %@",signStr);
     NSString *sign = [self SHA256WithSignString:signStr];
+    NSLog(@"sign data %@",sign);
     PaymentViewController *vc = [PaymentViewController new];
     [vc startPayWithOrderInfo:orderString signType:@"SHA256" sign:sign appScheme:urlScheme];
-    return @0;
+    return orderString;
 }
 
 #pragma mark FlutterStreamHandler impl
@@ -96,4 +99,11 @@
     return ret;
 }
 
+- (NSString *)getCurrentTimes {
+    double currentTime =  [[NSDate date] timeIntervalSince1970];
+    NSString *strTime = [NSString stringWithFormat:@"%.0f",currentTime];
+    return strTime;
+}
+
 @end
+

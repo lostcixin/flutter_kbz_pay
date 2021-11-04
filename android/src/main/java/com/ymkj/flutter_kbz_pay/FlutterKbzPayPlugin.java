@@ -10,6 +10,10 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
+import android.content.Context;
+import android.content.ContextWrapper;
+import io.flutter.plugin.common.BinaryMessenger;
 
 import com.kbzbank.payment.KBZPay;
 
@@ -23,22 +27,53 @@ import java.util.Random;
 /**
  * FlutterKbzPayPlugin
  */
-public class FlutterKbzPayPlugin implements MethodCallHandler {
+public class FlutterKbzPayPlugin implements MethodCallHandler, FlutterPlugin {
     private static EventChannel.EventSink sink;
     /**
      * Plugin registration.
      */
 
-    private final Context context;
+    private Context context;
     private String signType = "SHA256";
     private String mOrderInfo;
     private String mSign;
+    private MethodChannel methodChannel;
+    private EventChannel eventChannel;
 
-    public static void registerWith(Registrar registrar) {
-        final MethodChannel methodChannel = new MethodChannel(registrar.messenger(), "flutter_kbz_pay");
-        final EventChannel eventchannel = new EventChannel(registrar.messenger(), "flutter_kbz_pay/pay_status");
-        methodChannel.setMethodCallHandler(new FlutterKbzPayPlugin(registrar.activeContext()));
-        eventchannel.setStreamHandler(new EventChannel.StreamHandler() {
+    public static void registerWith(io.flutter.plugin.common.PluginRegistry.Registrar registrar) {
+        final FlutterKbzPayPlugin instance = new FlutterKbzPayPlugin();
+        instance.onAttachedToEngine(registrar.context(), registrar.messenger());
+      }
+
+    // public static void registerWith(Registrar registrar) {
+    //     final MethodChannel methodChannel = new MethodChannel(registrar.messenger(), "flutter_kbz_pay");
+    //     final EventChannel eventchannel = new EventChannel(registrar.messenger(), "flutter_kbz_pay/pay_status");
+    //     this.context = registrar.activeContext();
+    //     methodChannel.setMethodCallHandler(this);
+    //     eventchannel.setStreamHandler(new EventChannel.StreamHandler() {
+    //         @Override
+    //         public void onListen(Object o, EventChannel.EventSink eventSink) {
+    //             SetSink(eventSink);
+    //         }
+
+    //         @Override
+    //         public void onCancel(Object o) {
+
+    //         }
+    //     });
+    // }
+
+    @Override
+    public void onAttachedToEngine(FlutterPluginBinding binding) {
+      onAttachedToEngine(binding.getApplicationContext(), binding.getBinaryMessenger());
+    }
+  
+    private void onAttachedToEngine(Context applicationContext, BinaryMessenger messenger) {
+      this.context = applicationContext; 
+      final MethodChannel methodChannel =  new MethodChannel(messenger, "flutter_kbz_pay");
+      final EventChannel eventchannel = new EventChannel(messenger, "flutter_kbz_pay/pay_status");
+      methodChannel.setMethodCallHandler(this);
+      eventchannel.setStreamHandler(new EventChannel.StreamHandler() {
             @Override
             public void onListen(Object o, EventChannel.EventSink eventSink) {
                 SetSink(eventSink);
@@ -50,9 +85,10 @@ public class FlutterKbzPayPlugin implements MethodCallHandler {
             }
         });
     }
-
-    public FlutterKbzPayPlugin(Context context) {
-        this.context = context;
+  
+    @Override
+    public void onDetachedFromEngine(FlutterPluginBinding binding) {
+        context = null;
     }
 
     @Override
@@ -60,9 +96,6 @@ public class FlutterKbzPayPlugin implements MethodCallHandler {
         switch (call.method) {
             case "startPay":
                 createPay(call, result);
-                break;
-            case "getPlatformVersion":
-                result.success("Android " + android.os.Build.VERSION.RELEASE);
                 break;
             default:
                 result.notImplemented();

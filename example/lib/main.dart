@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:flutter_kbz_pay/flutter_kbz_pay.dart';
 
 void main() => runApp(MyApp());
@@ -12,7 +9,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
   String prepayId = '2',
       merchCode = '100187778',
       appId = 'kp1234567890987654321abcdefghijk',
@@ -25,7 +21,6 @@ class _MyAppState extends State<MyApp> {
     FlutterKbzPay.onPayStatus().listen((Object data) {
       print('onPayStatus $data');
     });
-    initPlatformState();
   }
 
   void success(dynamic data) {
@@ -34,26 +29,6 @@ class _MyAppState extends State<MyApp> {
 
   void error(dynamic data) {
     print(data);
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await FlutterKbzPay.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
   }
 
   void startPay() {
@@ -80,8 +55,8 @@ class _MyAppState extends State<MyApp> {
             padding:
                 const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
             child: Form(
+              autovalidateMode: AutovalidateMode.always,
               key: _formKey,
-              autovalidate: true,
               child: ListView(
                 children: <Widget>[
                   Padding(
@@ -172,7 +147,7 @@ class _MyAppState extends State<MyApp> {
                     onSaved: (String value) => signKey = value,
                   ),
                   SizedBox(height: 15.0),
-                  RaisedButton(
+                  ElevatedButton(
                       child: Text('Pay'),
                       onPressed: () {
                         startPay();
