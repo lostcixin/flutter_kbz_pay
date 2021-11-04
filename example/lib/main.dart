@@ -51,7 +51,6 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Padding(
-            //symmetric代表着对称，其vertical代表上下对称，horizontal代表左右对称
             padding:
                 const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
             child: Form(

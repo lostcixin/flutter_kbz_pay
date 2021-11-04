@@ -33,4 +33,7 @@
             android:name="com.kbzbank.payment.sdk.callback.CallbackResultActivity"
             android:exported="true" />
     </application>
+    <meta-data
+    android:name="flutterEmbedding"
+    android:value="2" />Î
 </manifest>
